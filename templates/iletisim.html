@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <title>Farkındayım </title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+{% extends "index.html" %}
+
+{% block content %}
+
+
+<section class="iletişimkısmı">
+  <div class="iletişim-form">
+
+    <div class="iletişim-sol">
+      <h1>Bize Ulaşın</h1>
+      
+      <div class="iletişim-ikon">
+        <i class="fa-solid fa-envelope"></i>
+        <p>E-posta : farkindayim3@gmail.com</p>
+      </div>
+      
+      <div class="iletişim-ikon">
+        <i class="fa-solid fa-phone"></i>
+        <p>Telefon : 555 423 33</p>
+      </div>
+      
+      <div class="iletişim-ikon">
+        <i class="fa-solid fa-location-dot"></i>
+        <p>
+          Engelsiz Fikirler Ofisi<br>
+          Hayal Sokak No: 0, Asansör Bozuldu Plaza Kat: 1<br>
+          Anlayış Mahallesi, Empati Caddesi / Türkiye
+        </p>
+      </div>
+         <div class="iletişim-ikon-fxi">
+        <i class="fa-brands fa-facebook"></i>
+        <i class="fa-brands fa-x-twitter"></i>
+        <i class="fa-brands fa-instagram"></i>
+      </div>
+      </div>
+    <form class="iletişim-sağ" action="{{ url_for('main.iletisim') }}" method="POST">
+      <div class="iletişim-yazı">
+        <h3>“Bir mesaj, bin fark yaratır. Sesini duymak isteriz!”</h3>
+      </div>
+      
+      <div class="input-grup-iletişim">
+        <i class="fa-solid fa-user"></i>
+        <input type="text" placeholder="Adınız" name="ad_soyad" required>
+      </div>
+      
+      <div class="input-grup-iletişim">
+        <i class="fa-solid fa-envelope"></i>
+        <input type="email" placeholder="E-posta" name="email" required>
+      </div>
+      
+      <div class="input-grup-iletişim">
+        <i class="fa-solid fa-comment"></i>
+        <input type="text" placeholder="Mesajınız" name="mesaj">
+    </div>
+
+            <button type="submit" class="gönder-btn">Gönder</button>
+
+      <div class="popup-flash-mesajlar" style="width: 100%; margin-top: 15px;">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+      </div>
+          
+   
+    </form>
+    
+</section>
+{% endblock %}
+<script type="module" src="{{ url_for('static', filename='anasayfa.js') }}"></script>
+

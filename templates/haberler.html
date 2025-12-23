@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <title>Farkındayım </title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+  {% extends "index.html" %}
+
+{% block content %}
+
+  <section class="haberler" style="padding-top: 50px; min-height: 80vh;"> 
+      <h2>TÜM HABERLER</h2>
+      <p>En güncel gelişmeler</p>
+      
+      <div class="haber-container">
+        
+        {% for haber in haberler %}
+          <div class="haber-kartları">
+            
+            {% if haber.resim_url %}
+              <img src="{{ haber.resim_url }}" alt="{{ haber.baslik }}">
+            {% else %}
+              <img src="{{ url_for('static', filename='images/resim-ornek.jpg') }}" alt="haber-resmi-placeholder">
+            {% endif %}
+            
+            <h3>{{ haber.baslik }}</h3>
+            <br>
+            <p>{{ haber.ozet }}</p>
+            
+            <a href="{{ url_for('main.haber_detay', haber_id=haber.id) }}" target="_blank" class="haber-btn">DAHA FAZLASI</a>
+    
+          </div>
+        {% else %}
+          <div style="width: 100%; text-align: center; margin-top: 50px;">
+              <p>Gösterilecek haber bulunamadı.</p>
+              <a href="{{ url_for('main.rss_guncelle') }}" class="btn btn-outline-primary">Haberleri Güncelle</a>
+          </div>
+        {% endfor %}
+    
+      </div> 
+      
+      <div class="tüm-haberler" style="margin-top: 30px; margin-bottom: 50px;">
+          <a href="{{ url_for('main.index') }}" class="tüm-haber-btn">Anasayfaya Dön</a> 
+      </div>
+
+  </section>
+
+{% endblock %}

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Farkındayım</title>
+  
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <input type="radio" id="popup-kapat" name="popup-kontrol-grubu" class="popup-kontrol" hidden checked>
+
+  <input type="radio" id="giris-tetikleyici" name="popup-kontrol-grubu" class="popup-kontrol" hidden 
+         {% if request.args.get('giris_hata') == 'true' or request.args.get('giris_ac') == 'true' %}checked{% endif %}>
+  
+  <div class="popup-arkaplan">
+    <div class="arka-plan">
+      <div class="i-y-k-kısmı">
+        <label for="popup-kapat" class="kapat-butonu">&times;</label>
+        <img src="{{ url_for('static', filename='images/logo.png') }}">
+        <h1>Kaldığın Yerden.</h1>
+
+        <div class="popup-flash-mesajlar">
+          {% with messages = get_flashed_messages(category_filter=['login_error', 'login_success'], with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'login_error' else 'success' }}" role="alert" style="margin-top: 10px; font-size: 14px; padding: 10px;">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+      </div>
+
+      <form action="{{ url_for('main.giris_yap') }}" method="POST">
+        <div class="içerik">
+          <div class="input-grup">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" placeholder="Kullanıcı Adı" name="kullanici_adi" required>
+          </div>
+          <div class="input-grup">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" placeholder="Şifre" name="sifre" required>
+          </div>
+        </div>
+        <div class="i-footer">
+          <button type="submit" class="kayıtol-btn">Giriş Yap</button>
+          <label for="kayit-tetikleyici" class="popup-gecis-linki">Hesabın yok mu? Kayıt Ol</label>
+          <label for="sifre-istek-tetikleyici" class="popup-gecis-linki">Şifremi Unuttum?</label>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <input type="radio" id="kayit-tetikleyici" name="popup-kontrol-grubu" class="popup-kontrol" hidden {% if request.args.get('kayit_ac') == 'true' %}checked{% endif %}>
+  
+  <div class="popup-arkaplan">
+    <div class="arka-plan">
+      <div class="i-y-k-kısmı">
+        <label for="popup-kapat" class="kapat-butonu">&times;</label>
+        <img src="{{ url_for('static', filename='images/logo.png') }}">
+        <h1>Farkını Keşfet</h1>
+
+        <div class="popup-flash-mesajlar">
+          {% with messages = get_flashed_messages(category_filter=['register_error', 'register_success'], with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'register_error' else 'success' }}" role="alert" style="margin-top: 10px; font-size: 14px; padding: 10px;">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+      </div>
+
+      <form action="{{ url_for('main.kayit_ol') }}" method="POST">
+        <div class="içerik">
+          <div class="input-grup">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" placeholder="Kullanıcı Adı" name="kullanici_adi" required>
+          </div>
+          <div class="input-grup">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" placeholder="E-posta" name="email" required>
+          </div>
+          <div class="input-grup">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" placeholder="Şifre" name="sifre" required>
+          </div>
+        </div>
+        <div class="i-footer">
+          <button type="submit" class="kayıtol-btn">Kayıt Ol</button>
+          <label for="giris-tetikleyici" class="popup-gecis-linki">Zaten bir hesabın var mı? Giriş Yap</label>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <input type="radio" id="sifre-istek-tetikleyici" name="popup-kontrol-grubu" class="popup-kontrol" hidden>
+  
+  <div class="popup-arkaplan">
+    <div class="arka-plan">
+      <div class="i-y-k-kısmı">
+        <label for="giris-tetikleyici" class="kapat-butonu">&times;</label>
+        <img src="{{ url_for('static', filename='images/logo.png') }}">
+        <h1>Şifreni Sıfırla</h1>
+      </div>
+
+      <form action="{{ url_for('main.sifre_sifirlama_talebi') }}" method="POST">
+        <div class="içerik">
+          <p style="font-size: 14px; color: #555; margin-bottom: 25px; text-align: center; line-height: 1.4;">
+            Hesabınla ilişkili e-posta adresini gir. Sana sıfırlama linki göndereceğiz.
+          </p>
+          <div class="input-grup">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" placeholder="E-posta" name="email" required>
+          </div>
+        </div>
+        <div class="i-footer">
+          <button type="submit" class="kayıtol-btn">Sıfırlama Bağlantısı Gönder</button>
+          <label for="giris-tetikleyici" class="popup-gecis-linki">Giriş Ekranına Dön</label> 
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <input type="radio" id="yeni-sifre-tetikleyici" name="popup-kontrol-grubu" class="popup-kontrol" hidden {% if request.args.get('sifre_sifirla') == 'true' %}checked{% endif %}>
+  
+  <div class="popup-arkaplan">
+    <div class="arka-plan">
+      <div class="i-y-k-kısmı">
+        <label for="popup-kapat" class="kapat-butonu">&times;</label>
+        <img src="{{ url_for('static', filename='images/logo.png') }}">
+        <h1>Yeni Şifre</h1>
+      </div>
+
+      <form action="{{ url_for('main.sifre_degistir') }}" method="POST">
+        <input type="hidden" name="email" value="{{ request.args.get('email') }}">
+        <div class="içerik">
+          <p style="font-size: 14px; color: #555; margin-bottom: 25px; text-align: center;">
+            Lütfen yeni şifrenizi belirleyin.
+          </p>
+          <div class="input-grup">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" placeholder="Yeni Şifre" name="yeni_sifre" required>
+          </div>
+        </div>
+        <div class="i-footer">
+          <button type="submit" class="kayıtol-btn">Şifreyi Güncelle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="{{ url_for('static', filename='images/logo.png') }}">
+      </div>
+      <ul class="nav-links">
+        <li><a href="{{url_for('main.index')  }}">Anasayfa</a></li>
+        <li><a href="{{ url_for('main.hakkimizda')  }}">Hakkımızda</a></li>
+        <li><a href="{{ url_for('main.tum_haberler') }}">Haberler</a></li>
+        <li>
+          {% if current_user.is_authenticated %}
+            <a href="{{ url_for('main.rotalar') }}">Rotalar</a>
+          {% else %}
+            <label for="giris-tetikleyici" class="nav-popup-link">Rotalar</label>
+          {% endif %}
+        </li>
+        <li><a href="{{ url_for('main.hakkimi_biliyorum') }}">Hakkımı Biliyorum</a></li>
+        <li><a href="{{ url_for('main.iletisim') }}">İletişim</a></li> 
+      </ul>
+      
+      <div class="gk-buton">
+        {% if current_user.is_authenticated %}
+          <div class="profil-sistemi">
+            <input type="checkbox" id="profil-tetikleyici" class="profil-kontrol" hidden>
+
+            <label for="profil-tetikleyici" class="profil-avatar-btn">
+              <img src="{{ url_for('static', filename='images/pp.logo1.png') }}" alt="Profil">
+            </label>
+
+            <div class="profil-dropdown">
+              <div class="profil-baslik">
+                <div class="buyuk-avatar">
+                    <img src="{{ url_for('static', filename='images/pp.logo1.png') }}" alt="Profil">
+                </div>
+                <div class="profil-bilgi">
+                  <h4>{{ current_user.kullanici_adi }}</h4>
+                  <span>{{ current_user.email }}</span>
+                </div>
+              </div>
+              <hr>
+              <ul class="profil-menu">
+                <li>
+                  <a href="{{ url_for('main.profil') }}" 
+                <span><i class="fa-solid fa-user"></i> Profilim</span>
+                </a>
+                    <a href="{{ url_for('main.bagislarim') }}" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span><i class="fa-solid fa-heart"></i> Bağışlarım</span>
+                        <span class="bagis-etiketi">{{ cuzdan_bakiye }} ₺</span>
+                    </a>
+                </li>
+               
+                <li>
+                    <a href="{{ url_for('main.cikis_yap') }}" class="cikis-link">
+                        <i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap
+                    </a>
+                </li>
+              </ul>
+              <label for="profil-tetikleyici" class="profil-perde"></label>
+            </div>
+          </div>
+        {% else %}
+          <label for="giris-tetikleyici" class="giriş-btn">Giriş Yap</label>
+          <label for="kayit-tetikleyici" class="kayıtol-btn">Kayıt Ol</label>
+        {% endif %}
+      </div>
+    </nav>
+  </header>
+
+  {% block content %}
+      <section class="hero">
+        <div class="hero-text">
+          <h1 data-aos="fade-down" data-aos-duration="1000">“Engelleri Birlikte Aşıyor, Hayatı Hep Birlikte Renklendiriyoruz.”</h1>
+          <p data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">Sende bize katıl engelleri hep birlikte kaldıralım</p>
+          <br>
+          <a href="{{ url_for('main.hakkimizda') }}" class="cta-btn"  data-aos="fade-in" data-aos-delay="400" data-aos-duration="1000">DETAYLI BİLGİ</a>
+        </div>
+      </section>
+
+      <section class="haberler">
+        <h2>HABERLER</h2>
+        <p>Farkındayım</p>
+        
+        <div class="haber-container">
+          {% for haber in haberler %}
+          <div class="haber-kartları">
+              {% if haber.resim_url %}
+                 <img src="{{ haber.resim_url }}" alt="{{ haber.baslik }}">
+              {% else %}
+                 <img src="{{ url_for('static', filename='images/resim-ornek.jpg') }}" alt="haber-resmi-placeholder">
+              {% endif %}
+              
+              <h3>{{ haber.baslik }}</h3>
+                 <br>
+                 {% if haber.yayin_tarihi %}
+                 <p><small>Tarih: {{ haber.yayin_tarihi.strftime('%d.%m.%Y - %H:%M') }}</small></p>
+                 {% endif %}
+              
+              <p>{{ haber.ozet }}</p>
+              
+              <a href="{{ url_for('main.haber_detay', haber_id=haber.id) }}" target="_blank" class="haber-btn">DAHA FAZLASI</a>
+          </div>
+          {% else %}
+            <p>Gösterilecek haber bulunamadı. Lütfen daha sonra tekrar deneyin veya <a href="{{ url_for('main.rss_guncelle') }}">haberleri güncelleyin</a>.</p>
+          {% endfor %}
+        </div>
+          
+        <div class="tüm-haberler">
+          <a href="{{ url_for('main.tum_haberler') }}" class="tüm-haber-btn">Tüm Haberler</a> 
+        </div>
+      </section>
+
+      <section class="bağiş-kismi">
+        <h2>Harekete Geç</h2>
+        <p>Küçük bir destek, büyük bir fark yaratır.</p>
+
+        <form class="bagis-kutusu" action="{{ url_for('main.create_checkout_session') }}" method="POST">
+
+          <div class="miktar-secenekleri">
+            <input type="radio" id="miktar150" name="bagis_miktari" value="150" class="secim-butonu" checked>
+            <label for="miktar150" class="miktar-butonu">150₺</label>
+
+            <input type="radio" id="miktar350" name="bagis_miktari" value="350" class="secim-butonu">
+            <label for="miktar350" class="miktar-butonu">350₺</label>
+
+            <input type="radio" id="miktar500" name="bagis_miktari" value="500" class="secim-butonu">
+            <label for="miktar500" class="miktar-butonu">500₺</label>
+
+            <input type="radio" id="miktar1000" name="bagis_miktari" value="1000" class="secim-butonu">
+            <label for="miktar1000" class="miktar-butonu">1000₺</label>
+          </div>
+
+          <div class="kgirilen-değer">
+            <input type="radio" id="miktarDiger" name="bagis_miktari" value="diger" class="secim-butonu">
+            <label for="miktarDiger" class="kgirilen-etiket"> Diğer 
+                  <input type="number" id="ozel-miktar" name="ozel_miktar" class="ozel-giris" placeholder="_____" max="99999999"> ₺
+            </label>
+          </div>
+
+          {% if current_user.is_authenticated %}
+            <button type="submit" class="bagis-yap-butonu">
+                 Bağış Yap <span class="ok-isareti">→</span>
+            </button>
+          {% else %}
+            <label for="giris-tetikleyici" class="bagis-yap-butonu" style="cursor: pointer;">
+                Bağış Yap <span class="ok-isareti">→</span>
+            </label>
+          {% endif %}
+
+        </form> 
+        
+        {% with messages = get_flashed_messages(category_filter=['donation_success', 'donation_error'], with_categories=true) %}
+          {% if messages %}
+            <div class="bagis-mesaj-kutusu" style="margin-top: 20px;"> 
+              {% for category, message in messages %}
+                <div class="alert alert-{{ 'success' if category == 'donation_success' else 'danger' }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+      </section> 
+
+      <section class="Hakkımı-biliyorum">
+        <h2>Hakkımı Biliyorum</h2>
+        <p>Her hakkın değeri var, senin de</p>
+        
+        <div class="hakkım-container">
+            {% for hak in haklar %}
+            <div class="hakkım-kartları">
+                <img src="{{ hak.resim_url }}" alt="{{ hak.baslik }}" style="width: 100%; height: 200px; object-fit: cover;">
+                <h3 style="margin-top: 15px; min-height: 50px;">{{ hak.baslik }}</h3>
+                <br>
+                <p>{{ hak.ozet }}</p>
+                <a href="/hak_detay/{{ hak.id }}" class="hakkım-btn">DAHA FAZLASI</a>
+            </div>
+            {% else %}
+                <p style="text-align: center; width: 100%;">Henüz içerik eklenmemiş.</p>
+            {% endfor %}
+        </div>
+        <div class="tüm-hakkımbilgisi">
+            <a href="/hakkimi_biliyorum" class="tüm-hakkımbilgisi-btn">Tüm Bilgiler</a>
+        </div>
+      </section>
+<!-- Aİ ASİSTAN -->
+      <div id="ai-assistant-widget" class="ai-widget-container">
+          <div id="ai-status-bubble" class="ai-status-bubble">
+              <span class="dot-animation"></span>
+              <span id="ai-status-text">Senin İçin Buradayım</span>
+          </div>
+          <button id="ai-toggle-btn" class="ai-main-button">
+              <i id="ai-icon" class="fa-solid fa-microphone"></i>
+              <div class="ripple"></div>
+          </button>
+      </div>
+      <!-- Erişilebilirlik -->
+      <button id="erişilebilirlik-btn" aria-label="Erişilebilirlik">
+        <img src="{{ url_for('static', filename='images/e-logo.png') }}" alt="Erişilebilirlik">
+      </button>
+
+      <div id="e-panel">
+      <button id="font-buyut">Yazı Büyüt</button>
+      <button id="font-kucult">Yazı Küçült</button>
+      <button id="buyuk-imlec">Büyük İmleç</button>
+      </div>
+
+
+      <section class="rota" style="overflow-x: hidden;">
+        <div class="rota-kismi" data-aos="fade-right" data-aos-duration="800">
+          <img src="{{ url_for('static', filename='images/gg.png') }}" style="width: 100%; height: auto; object-fit: contain;">
+        </div>
+
+        <div class="rota-text">
+          <h2 data-aos="fade-left" data-aos-delay="0">ENGELSİZ ANLAR</h2>
+          <p data-aos="fade-left" data-aos-delay="100">Kahvemiz farklı, kalbimiz aynı</p>
+          {% if current_user.is_authenticated %}
+             <a href="{{ url_for('main.rotalar') }}" class="rota-btn" data-aos="zoom-in" data-aos-delay="200">
+                Detaylı Bilgi
+             </a>
+          {% else %}
+             <label for="giris-tetikleyici" class="rota-btn" style="cursor: pointer;" data-aos="zoom-in" data-aos-delay="200">
+                Detaylı Bilgi
+             </label>
+          {% endif %}
+        </div>
+      </section>
+
+  {% endblock %} 
+  <footer class="footer">
+      <div class="yazılar-footer">
+        <br><br><br>
+        <h1>Engelsiz bir hayata ve haklarınıza ulaşmanız için yanınızdayız.</h1>
+        <p>FARKINDAYIM</p>
+       
+      </div>
+      <div class="footer-lnk">
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+      <div class="sözleşmeler">
+          <a href="{{ url_for('main.gizlilik') }}">Gizlilik Politikası</a>
+          <a href="{{ url_for('main.cerez') }}">Çerez Politikası</a>
+          <a href="{{ url_for('main.kullanim_kosullari') }}">Kullanım Koşulları</a> 
+      </div>
+      <div class="Copyright">
+            <p>© 2025 Farkındayım. Tüm hakları saklıdır.</p>
+      </div>
+    </div>
+  </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init(); 
+    </script>
+
+    <script type="module" src="{{ url_for('static', filename='anasayfa.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <title>Farkındayım </title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+ {% extends "index.html" %}
+
+{% block content %}
+  <section class="hakkımız-bölümü">
+    <div class="h-yazı-bölümü">
+        <h1>Hakkımızda</h1>
+         <p>
+Farkındayım, engelli bireylerin hayatını kolaylaştıran bilgi, yönlendirme ve farkındalık platformudur. Burada amaç basittir. İnsanların haklarını bilmesi için net açıklamalar sağlamak. Kanun süreçlerini karmaşıklıktan çıkarmak. Hizmetleri tanıtmak. Gereksiz terimleri sadeleştirmek. Herkesin anlayacağı bir dil kullanmak.</p>
+
+<p>Toplumda bilgi kirliliği vardır. Bazı haklar duyulmaz. Başvurular karışık görünür. Bu platform bu sorunları azaltır. Doğru bilgi güç kazandırır. Bu yüzden içerikler anlaşılabilir tutulur. Gereksiz teknik detay yoktur.</p>
+
+<p>Farkındayım, aynı zamanda sosyal destek alanıdır. Ziyaretçiler yalnız hissetmez. Haklarını öğrenirken güven duyar. Sorularına cevap bulur. Engellerin sadece fiziksel olmadığını bilir. Tutumlar da engel yaratır. Burada bu bilinci artırmak hedeflenir.</p>
+
+<p>Sitede süreçler basamak basamak anlatılır. Başvurulacak yerler gösterilir. Gerekli belgeler listelenir. Kullanıcıya zaman kazandırılır. Aradığını bulamazsa yönlendirilir.</p>
+
+<p>Farkındayım, toplumun her kesimini kapsar. Öğrenciler, aileler, bakıcılar ve engelli bireyler buradan yararlanır. İçerikler güncellenir. Değişen kanunlar takip edilir.</p>
+<p>Bu platformun temel ilkeleri şunlardır:</p>
+<ul>
+<li>Erişilebilirlik</li>
+<li>Anlaşılabilir bilgi</li>
+<li>Tarafsız kaynak</li>
+<li>Dayanışma</li>
+</ul>
+
+<p>Herkes daha eşit bir yaşamı hak eder. Bilgiye erişim bunun ilk adımıdır. 
+</p>
+<p>Farkındayım bu adımı destekler. Engelleri beraber hafifletir.
+</p>
+    </div>
+    <div class="h-image">
+        <img src="{{ url_for('static', filename='images/hakkımdaa.png') }}">
+    </div>
+  </section>
+
+  <section class="vizyon-s">
+    <div class="v-kısmı">
+        <h1>Vizyon</h1>
+    
+    <div class="v-kısmı-l">
+        <ul>
+            <li>Engelli bireylerin bilgiye hızlı ve açık eriştiği bir dijital alan sağlamak</li>
+            <li>Toplumda farkındalık seviyesini yükseltmek</li>
+            <li>Dijital destek topluluğu oluşturmak</li>
+            <li>Erişilebilir içerik kültürünü yaygınlaştırmak</li>
+        </ul>
+    </div>
+    </div>
+    
+    </section>
+    <section class="misyon-s">
+    <div class="m-kısmı">
+        <h1>Misyon</h1>
+    <div class="m-kısmı-l">
+        <ul>
+            <li>Erişilebilir web deneyimi sunmak</li>
+            <li>Kullanıcıları doğru kaynaklara yönlendirmek</li>
+            <li>Güncel ve güvenilir bilgi paylaşmak</li>
+            <li>Kanun ve hakları sade bir dille açıklamak</li>
+        </ul>
+    </div>
+    </div>
+    
+  </section>
+{% endblock %}
+<script src="{{ url_for('static', filename='anasayfa.js') }}"></script>
+  </body>

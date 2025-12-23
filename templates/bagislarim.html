@@ -1,0 +1,62 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 900px; min-height: 60vh;">
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="fa-solid fa-heart text-danger"></i> Bağış Geçmişim</h2>
+    </div>
+
+    <div class="card shadow border-0 rounded-3">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 align-middle">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="py-3 ps-4">Tarih</th>
+                            <th class="py-3">Durum</th>
+                            <th class="py-3 text-end pe-4">Tutar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for bagis in bagislar %}
+                        <tr>
+                            <td class="ps-4">
+                                <div class="fw-bold text-dark">{{ bagis.tarih.strftime('%d.%m.%Y') }}</div>
+                                <div class="text-muted small">{{ bagis.tarih.strftime('%H:%M') }}</div>
+                            </td>
+                            
+                            <td>
+                                {% if bagis.durum == 'Başarılı' or bagis.durum == 'succeeded' %} 
+                                    <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">
+                                        <i class="fa-solid fa-check me-1"></i> Başarılı
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-2 rounded-pill">
+                                        {{ bagis.durum }}
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <td class="text-end pe-4">
+                                <span class="fw-bold fs-5 text-dark">
+                                    {{ "{:,.2f}".format(bagis.miktar / 100) }} ₺
+                                </span>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="3" class="text-center py-5 text-muted">
+                                <i class="fa-solid fa-hand-holding-heart fa-3x mb-3 text-secondary"></i>
+                                <p>Henüz bir bağış geçmişiniz yok.</p>
+                                <a href="{{ url_for('main.index') }}" class="btn btn-primary btn-sm">Bağış Yap</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

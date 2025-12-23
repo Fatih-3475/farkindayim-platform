@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  
+  <title>Farkındayım - {{ hak.baslik }}</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+
+  
+  {% extends "index.html" %}
+
+{% block content %}
+
+    <div class="haber-detay-container">
+        <h1>{{ hak.baslik }}</h1>
+
+        {% if hak.olusturulma_tarihi %}
+            <p class="tarih">Güncelleme Tarihi: {{ hak.olusturulma_tarihi.strftime('%d.%m.%Y') }}</p>
+        {% endif %}
+
+        {% if hak.resim_url %}
+            <img src="{{ hak.resim_url }}" alt="{{ hak.baslik }}" class="detay-resim">
+        {% endif %}
+
+        <div class="icerik">
+            {{ hak.icerik | safe }}
+        </div>
+        
+        <br>
+        <a href="/hakkimi_biliyorum" > Tüm Haklara Geri Dön</a>
+
+    </div>
+    {% endblock %}
+    <script src="{{ url_for('static', filename='anasayfa.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şifremi Sıfırla - Farkındayım</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+<body>
+
+    <div class="reset-modal-box">
+        
+        <div class="header-content">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" style="width: 50px; margin-bottom: 10px;">
+            <h1>Yeni Şifre Belirle</h1>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="flash-mesaj {{ category }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('main.reset_password_token', token=token) }}">
+   
+            <div class="input-grup">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" placeholder="Yeni Şifre" name="password" required>
+            </div>
+            
+            <div class="input-grup">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" placeholder="Şifre Tekrar" name="confirm_password" required>
+            </div>
+            
+            <button type="submit" class="kayıtol-btn">Şifreyi Güncelle</button>
+        </form>
+        
+    </div>
+
+</body>
+</html>

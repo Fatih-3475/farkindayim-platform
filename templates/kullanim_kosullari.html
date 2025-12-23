@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <title>Farkındayım </title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+{% extends "index.html" %}
+
+{% block content %}
+
+
+<section class="kullanım-koşulları">
+    <div class="kullanım-koşulları-yazı">
+        <h2 data-aos="zoom-in-up" data-aos-delay="400" data-aos-duration="1000">Kullanım Koşulları</h2>
+        <p data-aos="zoom-in-up" data-aos-delay="400" data-aos-duration="1000">Farkındayım, engelli bireylerin haklarını, fırsat eşitliğini ve sosyal farkındalığı artırmayı hedefleyen bir web platformudur. Siteyi kullanan herkes aşağıdaki koşulları kabul etmiş sayılır.</p>
+        <p data-aos="zoom-in-up" data-aos-delay="400" data-aos-duration="1000">Genel Koşullar
+            <ul data-aos="zoom-in-up" data-aos-delay="400" data-aos-duration="1000">
+                <li>Site içeriği bilgilendirme ve farkındalık amaçlıdır.</li>
+                <li>Sağlanan bilgiler hukuki veya tıbbi tavsiye niteliğinde değildir.</li>
+                <li>Kullanıcı, paylaşılan içeriklerden elde ettiği sonuçlardan kendisi sorumludur.</li>
+            </ul>
+        </p>
+        <p data-aos="zoom-in-up" data-aos-delay="400" data-aos-duration="1000">İçerik Hakları
+            <ul data-aos="zoom-in-up" data-aos-delay="400" data-aos-duration="1000">
+                <li>Sitede yer alan yazılar, görseller ve tasarımlar Farkındayım’a aittir.</li>
+                <li>İzinsiz kopyalama, çoğaltma veya ticari amaçla kullanma yasaktır.</li>
+            </ul>
+        </p>
+        <p data-aos="zoom-in-up" data-aos-delay="400" data-aos-duration="1000">Kullanıcı Sorumlulukları
+            <ul data-aos="zoom-in-up" data-aos-delay="400" data-aos-duration="1000">
+                <li>Kullanıcılar saygılı, kapsayıcı ve toplum değerlerine uygun biçimde davranmakla yükümlüdür.</li>
+                <li>Siteye zarar verecek, kötü niyetli veya yanıltıcı içerikler paylaşmak yasaktır.</li>
+                <li>Her kullanıcı, paylaştığı içerikten kendisi sorumludur.</li>
+            </ul>
+        </p>
+        <p data-aos="zoom-in-up" data-aos-delay="400" data-aos-duration="1000">Değişiklik Hakkı
+            <ul data-aos="zoom-in-up" data-aos-delay="400" data-aos-duration="1000">
+                <li>Farkındayım, gerekli gördüğünde içeriklerde ve koşullarda değişiklik yapma hakkını saklı tutar. Güncel sürüm bu sayfada yayınlanır.</li>
+            </ul>
+        </p>
+        <p data-aos="zoom-in-up" data-aos-delay="400" data-aos-duration="1000">İletişim
+            <ul data-aos="zoom-in-up" data-aos-delay="400" data-aos-duration="1000">
+                <li>Herhangi bir soru veya talep için bizimle <a href="./iletişim.html"><u>iletişim sayfası </u></a>üzerinden iletişime geçebilirsiniz.</li>
+            </ul>
+        </p>
+    </div>
+
+</section>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+{% endblock %}
+    <script src="{{ url_for('static', filename='anasayfa.js') }}"></script>
+</body>

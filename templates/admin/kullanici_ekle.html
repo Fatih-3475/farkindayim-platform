@@ -1,0 +1,33 @@
+{% extends "admin/index.html" %}
+{% block content %}
+
+<h1>Yeni Kullanıcı Ekle</h1>
+
+<form method="POST" class="mt-3" style="max-width:500px">
+  <div class="mb-3">
+    <label>Kullanıcı Adı</label>
+    <input type="text" name="kullanici_adi" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label>Email</label>
+    <input type="email" name="email" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label>Şifre</label>
+    <input type="password" name="sifre" class="form-control" required>
+  </div>
+
+  <div class="form-check mb-3">
+    <input class="form-check-input" type="checkbox" name="is_admin" id="is_admin">
+    <label class="form-check-label" for="is_admin">
+      Admin yetkisi ver
+    </label>
+  </div>
+
+  <button class="btn btn-success">Kaydet</button>
+  <a href="{{ url_for('main.admin_kullanicilar') }}" class="btn btn-secondary">İptal</a>
+</form>
+
+{% endblock %}

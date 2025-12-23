@@ -1,0 +1,35 @@
+{% extends "admin/index.html" %}
+{% block content %}
+
+<div class="container-fluid">
+  <h1>Hak Düzenle</h1>
+
+  <form method="post">
+    <div class="mb-3">
+      <label class="form-label">Başlık</label>
+      <input type="text" name="baslik" class="form-control"
+             value="{{ hak.baslik }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Özet</label>
+      <textarea name="ozet" class="form-control" rows="3">{{ hak.ozet }}</textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Resim URL</label>
+      <input type="text" name="resim_url" class="form-control"
+             value="{{ hak.resim_url }}">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">İçerik</label>
+      <textarea name="icerik" class="form-control" rows="8">{{ hak.icerik }}</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">💾 Güncelle</button>
+    <a href="{{ url_for('main.admin_haklar') }}" class="btn btn-secondary">Geri</a>
+  </form>
+</div>
+
+{% endblock %}

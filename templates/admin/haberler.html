@@ -1,0 +1,61 @@
+{% extends "admin/index.html" %}
+{% block content %}
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Haber Yönetimi</h1>
+    <a href="{{ url_for('main.admin_haber_ekle') }}" class="btn btn-success">
+      ➕ Yeni Haber Ekle
+    </a>
+  </div>
+
+  <table class="table table-bordered table-striped align-middle">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Görsel</th>
+        <th>Başlık</th>
+        <th>Tarih</th>
+        <th>İşlemler</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for haber in haberler %}
+      <tr>
+        <td>{{ haber.id }}</td>
+
+        
+        <td style="width:120px">
+          {% if haber.resim_url %}
+            <img src="{{ haber.resim_url }}"
+                 style="width:100px; height:60px; object-fit:cover"
+                 class="rounded"
+                 onerror="this.src='https://via.placeholder.com/100x60?text=Yok'">
+          {% else %}
+            <span class="text-muted">Yok</span>
+          {% endif %}
+        </td>
+
+        <td>{{ haber.baslik }}</td>
+
+        <td>
+          {{ haber.yayin_tarihi.strftime('%d.%m.%Y') if haber.yayin_tarihi }}
+        </td>
+
+        <td>
+          <a href="{{ url_for('main.admin_haber_duzenle', id=haber.id) }}"
+             class="btn btn-warning btn-sm">✏️ Düzenle</a>
+
+          <a href="{{ url_for('main.admin_haber_sil', id=haber.id) }}"
+             class="btn btn-danger btn-sm"
+             onclick="return confirm('Bu haberi silmek istediğine emin misin?')">
+             🗑️ Sil
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "admin/index.html" %}
+{% block content %}
+
+<h1 class="mb-3">Bağışlar</h1>
+
+<table class="table table-bordered table-striped align-middle">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Kullanıcı</th>
+      <th>Email</th>
+      <th>Miktar (₺)</th>
+      <th>Durum</th>
+      <th>Tarih</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for bagis, kullanici_adi, email in bagislar %}
+    <tr>
+      <td>{{ bagis.id }}</td>
+      <td>{{ kullanici_adi }}</td>
+      <td>{{ email }}</td>
+      <td>{{ bagis.miktar / 100 }}</td>
+      <td>
+        <span class="badge 
+        {% if bagis.durum == 'Başarılı' %}bg-success
+        {% else %}bg-warning{% endif %}">
+          {{ bagis.durum }}
+        </span>
+      </td>
+      <td>{{ bagis.tarih.strftime('%d.%m.%Y %H:%M') }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

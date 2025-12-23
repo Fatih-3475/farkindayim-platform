@@ -1,0 +1,41 @@
+{% extends "admin/index.html" %}
+{% block content %}
+
+<div class="container-fluid">
+  <h1>Haber Düzenle</h1>
+
+  <form method="POST">
+    <div class="mb-3">
+      <label>Başlık</label>
+      <input type="text" name="baslik" class="form-control"
+             value="{{ haber.baslik }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label>Kaynak Link</label>
+      <input type="text" name="link" class="form-control"
+             value="{{ haber.link }}">
+    </div>
+
+    <div class="mb-3">
+      <label>Özet</label>
+      <textarea name="ozet" class="form-control" rows="3">{{ haber.ozet }}</textarea>
+    </div>
+
+    <div class="mb-3">
+      <label>Resim URL</label>
+      <input type="text" name="resim_url" class="form-control"
+             value="{{ haber.resim_url }}">
+    </div>
+
+    <div class="mb-3">
+      <label>İçerik</label>
+      <textarea name="icerik" class="form-control" rows="8">{{ haber.icerik }}</textarea>
+    </div>
+
+    <button class="btn btn-warning">💾 Güncelle</button>
+    <a href="{{ url_for('main.admin_haberler') }}" class="btn btn-secondary">Geri</a>
+  </form>
+</div>
+
+{% endblock %}

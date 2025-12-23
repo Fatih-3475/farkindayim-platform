@@ -1,0 +1,55 @@
+{% extends "admin/index.html" %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1>Hak Yönetimi</h1>
+  <a href="{{ url_for('main.admin_hak_ekle') }}" class="btn btn-success">
+    ➕ Yeni Hak Ekle
+  </a>
+</div>
+
+<table class="table table-bordered table-striped align-middle">
+  <thead>
+    <tr>
+      <th style="width:60px">ID</th>
+      <th style="width:120px">Resim</th>
+      <th>Başlık</th>
+      <th style="width:130px">Tarih</th>
+      <th style="width:120px">İşlem</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for hak in haklar %}
+    <tr>
+      <td>{{ hak.id }}</td>
+
+      <td>
+        {% if hak.resim_url %}
+          <img src="{{ hak.resim_url }}"
+               style="width:90px; height:55px; object-fit:cover; border-radius:6px;">
+        {% else %}
+          <span class="text-muted">Yok</span>
+        {% endif %}
+      </td>
+
+      <td>{{ hak.baslik }}</td>
+
+      <td>
+        {{ hak.olusturulma_tarihi.strftime('%d.%m.%Y') }}
+      </td>
+
+      <td>
+        <a href="{{ url_for('main.admin_hak_duzenle', id=hak.id) }}"
+           class="btn btn-warning btn-sm">✏️</a>
+
+        <a href="{{ url_for('main.admin_hak_sil', id=hak.id) }}"
+           class="btn btn-danger btn-sm"
+           onclick="return confirm('Silinsin mi?')">🗑️</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

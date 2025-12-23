@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <title>Farkındayım - Hakkımı Biliyorum</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+{% extends "index.html" %}
+
+{% block content %}
+
+  <section class="haberler" style="padding-top: 50px;"> 
+      <h2>TÜM YASAL HAKLAR</h2>
+      <p>Bilmen gereken her şey burada</p>
+      
+      <div class="haber-container">
+        
+        {% for hak in haklar %}
+          <div class="haber-kartları">
+            <img src="{{ hak.resim_url }}" alt="{{ hak.baslik }}">
+            
+            <h3>{{ hak.baslik }}</h3>
+            <br>
+            <p>{{ hak.ozet }}</p>
+            
+            <a href="/hak_detay/{{ hak.id }}" class="haber-btn">DAHA FAZLASI</a>
+    
+          </div>
+        {% else %}
+          <p style="text-align: center; width: 100%;">Henüz içerik eklenmemiş.</p>
+        {% endfor %}
+    
+      </div> 
+      
+      <div class="tüm-haberler" style="margin-top: 30px;">
+          <a href="{{ url_for('main.index') }}" class="tüm-haber-btn">Anasayfaya Dön</a> 
+      </div>
+      
+    </section>
+ {% endblock %}
+    <script src="{{ url_for('static', filename='anasayfa.js') }}"></script>
+</body>
+</html>

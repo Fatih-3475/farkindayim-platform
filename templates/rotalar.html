@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <title>Farkındayım </title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+ <input type="radio" id="popup-kapat" name="popup-kontrol-grubu" class="popup-kontrol" hidden checked>
+
+
+  <input type="radio" id="giris-tetikleyici" name="popup-kontrol-grubu" class="popup-kontrol" hidden {% if request.args.get('giris_hata') == 'true' %}checked{% endif %}>
+  
+  <div class="popup-arkaplan">
+    <div class="arka-plan">
+      <div class="i-y-k-kısmı">
+        <label for="popup-kapat" class="kapat-butonu">&times;</label>
+        <img src="{{ url_for('static', filename='images/logo.png') }}">
+        <h1>Kaldığın Yerden.</h1>
+
+        <div class="popup-flash-mesajlar">
+          {% with messages = get_flashed_messages(category_filter=['login_error']) %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-danger" role="alert" style="margin-top: 10px; font-size: 14px; padding: 10px;">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+      </div>
+
+      <form action="{{ url_for('main.giris_yap') }}" method="POST">
+        <div class="içerik">
+          <div class="input-grup">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" placeholder="Kullanıcı Adı" name="kullanici_adi" required>
+          </div>
+          <div class="input-grup">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" placeholder="Şifre" name="sifre" required>
+          </div>
+        </div>
+        <div class="i-footer">
+          <button type="submit" class="kayıtol-btn">Giriş Yap</button>
+          <label for="kayit-tetikleyici" class="popup-gecis-linki">Hesabın yok mu? Kayıt Ol</label>
+          <label for="sifre-istek-tetikleyici" class="popup-gecis-linki">Şifremi Unuttum?</label>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<input type="radio" id="popup-kapat" name="popup-kontrol-grubu" class="popup-kontrol" hidden checked>
+
+
+  <input type="radio" id="giris-tetikleyici" name="popup-kontrol-grubu" class="popup-kontrol" hidden {% if request.args.get('giris_hata') == 'true' %}checked{% endif %}>
+  
+  <div class="popup-arkaplan">
+    <div class="arka-plan">
+      <div class="i-y-k-kısmı">
+        <label for="popup-kapat" class="kapat-butonu">&times;</label>
+        <img src="{{ url_for('static', filename='images/logo.png') }}">
+        <h1>Kaldığın Yerden.</h1>
+
+        <div class="popup-flash-mesajlar">
+          {% with messages = get_flashed_messages(category_filter=['login_error']) %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-danger" role="alert" style="margin-top: 10px; font-size: 14px; padding: 10px;">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+      </div>
+
+      <form action="{{ url_for('main.giris_yap') }}" method="POST">
+        <div class="içerik">
+          <div class="input-grup">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" placeholder="Kullanıcı Adı" name="kullanici_adi" required>
+          </div>
+          <div class="input-grup">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" placeholder="Şifre" name="sifre" required>
+          </div>
+        </div>
+        <div class="i-footer">
+          <button type="submit" class="kayıtol-btn">Giriş Yap</button>
+          <label for="kayit-tetikleyici" class="popup-gecis-linki">Hesabın yok mu? Kayıt Ol</label>
+          <label for="sifre-istek-tetikleyici" class="popup-gecis-linki">Şifremi Unuttum?</label>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <input type="radio" id="sifre-istek-tetikleyici" name="popup-kontrol-grubu" class="popup-kontrol" hidden>
+  
+  <div class="popup-arkaplan">
+    <div class="arka-plan">
+      <div class="i-y-k-kısmı">
+        <label for="giris-tetikleyici" class="kapat-butonu">&times;</label>
+        <img src="{{ url_for('static', filename='images/logo.png') }}">
+        <h1>Şifreni Sıfırla</h1>
+      </div>
+
+      <form action="{{ url_for('main.sifre_sifirlama_talebi') }}" method="POST">
+        <div class="içerik">
+          <p style="font-size: 14px; color: #555; margin-bottom: 25px; text-align: center; line-height: 1.4;">
+            Hesabınla ilişkili e-posta adresini gir. Sana sıfırlama linki göndereceğiz.
+          </p>
+          <div class="input-grup">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" placeholder="E-posta" name="email" required>
+          </div>
+        </div>
+        <div class="i-footer">
+          <button type="submit" class="kayıtol-btn">Sıfırlama Bağlantısı Gönder</button>
+          <label for="giris-tetikleyici" class="popup-gecis-linki">Giriş Ekranına Dön</label> 
+        </div>
+      </form>
+    </div>
+  </div>
+{% extends "index.html" %}
+
+{% block content %}
+
+<section class="rota-bolumu">
+    <h2>Birlik Noktası</h2>
+    <p>Aynı şehirde, aynı hakla</p>
+
+    <div class="rota-container">
+    
+    <div class="rota-kart"> 
+        <img src="{{ url_for('static', filename='images/istanbul.jpg') }}">
+        <a href="/birlik-noktasi/istanbul">İSTANBUL</a>
+    </div>
+
+    <div class="rota-kart">
+        <img src="{{ url_for('static', filename='images/ankara.jpg') }}">
+        <a href="/birlik-noktasi/ankara">ANKARA</a>
+    </div>
+
+    <div class="rota-kart">
+        <img src="{{ url_for('static', filename='images/izmir.jpg') }}">
+        <a href="/birlik-noktasi/izmir">İZMİR</a>
+    </div>
+
+    <div class="rota-kart">
+        <img src="{{ url_for('static', filename='images/bursa.jpg') }}">
+        <a href="/birlik-noktasi/bursa">BURSA</a>
+    </div>
+
+</div>
+
+</section>
+{% endblock %}

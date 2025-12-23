@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  
+  <title>Farkındayım - {{ haber.baslik }}</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% extends "index.html" %}
+
+{% block content %}
+
+    <div class="haber-detay-container">
+        <h1>{{ haber.baslik }}</h1>
+
+        {% if haber.yayin_tarihi %}
+            <p class="tarih">Yayın Tarihi: {{ haber.yayin_tarihi.strftime('%d.%m.%Y - %H:%M') }}</p>
+        {% endif %}
+
+        {% if haber.resim_url %}
+            <img src="{{ haber.resim_url }}" alt="{{ haber.baslik }}" class="detay-resim">
+        {% endif %}
+
+        <div class="icerik">
+            {% if haber.icerik %}
+                {{ haber.icerik | safe }}
+            {% else %}
+                <p>{{ haber.ozet }}</p>
+                <p><a href="{{ haber.link }}" target="_blank">Haberin tamamını orijinal kaynağında okumak için tıklayın.</a></p>
+            {% endif %}
+        </div>
+        <br>
+        <div class="tumhaberbtn">
+        <a href="{{ url_for('main.tum_haberler') }}">Tüm Haberlere Geri Dön</a>
+</div>
+    </div>
+{% endblock %}    
+
+    <script src="{{ url_for('static', filename='anasayfa.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{% extends "admin/index.html" %}
+
+{% block content %}
+
+<h3 class="mb-4">📩 İletişim Mesajları</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Ad Soyad</th>
+      <th>Email</th>
+      <th>Mesaj</th>
+      <th>Tarih</th>
+      <th>Sil</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for m in mesajlar %}
+    <tr>
+      <td>{{ m.ad_soyad }}</td>
+      <td>{{ m.email }}</td>
+      <td style="max-width:350px">{{ m.mesaj }}</td>
+      <td>{{ m.tarih.strftime('%d.%m.%Y %H:%M') }}</td>
+      <td>
+        <form method="POST"
+              action="{{ url_for('main.admin_iletisim_sil', id=m.id) }}"
+              onsubmit="return confirm('Mesaj silinsin mi?')">
+          <button class="btn btn-danger btn-sm">🗑 Sil</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
